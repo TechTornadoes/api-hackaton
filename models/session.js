@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
+      id_user: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     });
   
     return Sessions;

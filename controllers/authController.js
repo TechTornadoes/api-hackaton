@@ -72,7 +72,7 @@ module.exports.authenticate = async (req, res) => {
               })
     });
     await Session.update(
-        { idSession: req.sessionID },
+        { idSession: req.sessionID,id_user:idUser },
         {
           where: {
             code: code,
@@ -114,16 +114,23 @@ module.exports.checkSession = async (req, res) => {
         console.log('Not found!');
       } else {
         //console.log(sessionDB.idSession)
-          req.sessionStore.all((err, session)=>{ 
+          req.sessionStore.all(async (err, session)=>{ 
             console.log(session)
             const arr =  _.values(session);
            // console.log(arr)
             const sessionFound  = _.filter(arr,{"uniqueCode":sessionDB.code,"authenticated":true})
              if (sessionFound != null && sessionFound.length>0 ) {
-               
-                 res.json({ authenticated: true });
+                const user = await db.User.findOne({ where: { id: sessionDB.id_user }});
+                console.log()
+                let jwtSecretKey = "gfg_jwt_secret_key"; 
+                let data = {
+                    time: Date(),
+                    userId:user.id ,
+                }
+                 res.json({ tocken: jwt.sign(data, jwtSecretKey),userID:user.id,authenticated: true });
              } else {
-                 res.status(404).send('Session non autoriser');
+                 //res.status(404).send('Session non autoriser');
+                 res.json({ authenticated: false });
             } 
         }); 
 
