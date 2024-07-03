@@ -2,9 +2,9 @@ const express = require('express');
 const { createSession, validateCode, authenticate, checkSession } = require('../controllers/authController');
 const router = express.Router();
 
-router.post('/create-session', createSession);
-router.post('/validate-code', validateCode);
-router.post('/authenticate', authenticate);
-router.get('/check-session/:code', checkSession);
+router.post('/create-session', express.urlencoded({ extended: false }),createSession); /// web
+router.post('/validate-code', validateCode); // mobile
+router.post('/authenticate', authenticate);// mobile
+router.get('/check-session/:code', checkSession); // web 
 
 module.exports = router

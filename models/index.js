@@ -12,5 +12,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.User = require('./user')(sequelize, DataTypes)
+db.Sessions = require('./session')(sequelize, DataTypes)
 
 module.exports = db;
