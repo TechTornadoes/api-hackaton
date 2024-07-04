@@ -44,10 +44,12 @@ module.exports.authenticate = async (req, res) => {
 }
 
 const validateNfcData = async (nfcData) => {
+    console.log(nfcData);
     const decoded = jwt.decode(nfcData);
 
     if(decoded != null){
       const user = await db.User.findOne({ where: { email: decoded.email }});
+      console.log(user);
       if(user != null ){
         return true
       }else {
@@ -63,6 +65,7 @@ module.exports.checkSession = async (req, res) => {
             const decoded = jwt.decode(sessions[code].token);
             
             const user = await db.User.findOne({where : {email : decoded.email}})
+            console.log(user);
             const newToken = jwt.sign({user: user.dataValues.id_utilisateurs}, process.env.SECRET_KEY, {expiresIn : '3h'})
             res.json({ authenticated: sessions[code].authenticated, token : newToken});
         }else{
@@ -110,10 +113,6 @@ module.exports.validateSansCode = async (req, res) => {
         console.log(decoded);
 
         const user = await db.User.findOne({where : {id_utilisateurs : decoded.user}})
-
-        console.log(user);
-
-        console.log("efsdrg");
 
         if (user) {
             console.log("efsdrg");

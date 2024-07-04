@@ -22,13 +22,13 @@ app.use('/api/auth', authRoutes)
 
 
 // db.User.create({
-//   nom: 'Doe',
-//   prenom: 'John',
-//   email: 'john.doe@example.com',
+//   nom: 'Hugo',
+//   prenom: 'Bigeas',
+//   email: 'hugo.bigeas@estiam.com',
 //   tel: '123-456-7890',
 //   date_naissance: new Date('1980-01-01'),
-//   sexe: 'Masculin',
-//   qualification: 'Ingénieur',
+//   sexe: 'Feminin',
+//   qualification: 'Ingénieur Dev',
 //   pays: 'France',
 //   ville: 'Paris',
 //   statut: 'Actif'

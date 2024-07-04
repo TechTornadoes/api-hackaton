@@ -1,20 +1,13 @@
 const db = require('../models');
-const User = db.User;
 
-exports.createUser = async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.json(user);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-};
-
-exports.getUsers = async (req, res) => {
-  try {
-    const users = await User.findAll();
-    res.json(users);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
+module.exports.getUser = async (req, res) => {
+  const id = req.userId
+  console.log(id);
+    try {
+      
+        const user = await db.User.findOne({where : {id_utilisateurs : id}})
+        res.json({user})
+    } catch (error) {
+        res.status(400).json({error})
+    }
 };
